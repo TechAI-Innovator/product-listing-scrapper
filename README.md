@@ -94,5 +94,4 @@ pytest tests/
 
 **NAME: Ayomide Adu**  
 **EMAIL: techai.innovator@gmail.com**
-
-**GITHUB LINK: https://github.com/techai-innovator**
+**GITHUB: https://github.com/techai-innovator**

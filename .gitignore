@@ -1,5 +1,5 @@
 venv
 .pytest_cache
-tests/__pycache__
+scraper/__pycache__
 tests/__pycache__
 session.json
