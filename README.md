@@ -86,7 +86,6 @@ pytest tests/
 
 - Dockerfile for containerized execution
 - Proxy rotation (e.g., ProxyMesh)
-- Unit tests using `pytest`
 
 ---
 
@@ -95,4 +94,5 @@ pytest tests/
 
 **NAME: Ayomide Adu**  
 **EMAIL: techai.innovator@gmail.com**
+
 **GITHUB LINK: https://github.com/techai-innovator**
