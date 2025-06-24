@@ -39,6 +39,23 @@ Run the CLI tool with desired options:
 ```bash
 python scraper/cli.py --max-pages 3 --output-format csv --headless --reuse-session
 ```
+## 🐳 Docker
+
+A working `Dockerfile` is included and tested in a Linux-compatible environment. It installs Playwright, its browser dependencies, and runs the scraper with default CLI arguments.
+
+> ⚠️ Docker build on Windows (especially with Playwright) can be slow or problematic due to system dependencies and WSL configuration. For this reason, the container was not tested locally, but the configuration is complete and expected to work on Linux or cloud CI systems.
+
+To build and run (if supported):
+
+```bash
+docker build -t book-scraper .
+docker run --rm book-scraper
+```
+
+To override CLI options:
+```bash
+docker run --rm book-scraper python scraper/cli.py --max-pages 5 --output-format csv
+```
 
 ### CLI Options
 
