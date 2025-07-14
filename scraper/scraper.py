@@ -63,26 +63,24 @@ async def scrape_books(max_pages=3, headless=True, reuse_session=False):
         browser = await p.chromium.launch(headless=headless)
         user_agent = random.choice(USER_AGENTS)
 
-        # ✅ Reuse session if available
         if reuse_session and os.path.exists(session_path):
-            context = await browser.new_context(
-                storage_state=session_path
-            )
+            context = await browser.new_context(storage_state=session_path)
             print("[*] Loaded session from session.json")
         else:
             context = await browser.new_context(user_agent=user_agent)
             print("[*] Started new session with UA:", user_agent)
 
-        page = await context.new_page()
-
+        # ✅ Create a page per task
+        tasks = []
         for i in range(1, max_pages + 1):
+            page = await context.new_page()
             url = f"{BASE_URL}catalogue/page-{i}.html" if i > 1 else BASE_URL
-            try:
-                books = await retry_scrape(page, url)
-                all_books.extend(books)
-            except Exception as e:
-                print(f"[!] Error on page {i}: {e}")
-                continue
+            tasks.append(retry_scrape(page, url))
+
+        results = await asyncio.gather(*tasks)
+
+        # Flatten nested results
+        all_books = [book for result in results for book in result]
 
         await context.storage_state(path=session_path)
         print("[*] Session saved to session.json")
